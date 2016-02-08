@@ -1,16 +1,16 @@
 ﻿{
   "version": "1.0.0",
-  "title": "Logger.ExceptionSender",
+  "title": "Logging.ExceptionSender",
   "description": "Saves exception info (and some logs before) into text file and emails them to you via MailGun",
   "authors": [ "Dmitry Popov" ],
   "tags": [ "exception", "mail", "stacktrace", "recurrent", "aspnetcore" ],
-  "projectUrl": "https://github.com/justdmitry/Logger.ExceptionSender",
+  "projectUrl": "https://github.com/justdmitry/Logging.ExceptionSender",
   "copyright": "Dmitry Popov, 2016",
   "releaseNotes": "Initial release",
-  "licenseUrl": "https://github.com/justdmitry/Logger.ExceptionSender/blob/master/LICENSE",
+  "licenseUrl": "https://github.com/justdmitry/Logging.ExceptionSender/blob/master/LICENSE",
   "repository": {
     "type": "git",
-    "url": "https://github.com/justdmitry/Logger.ExceptionSender.git"
+    "url": "https://github.com/justdmitry/Logging.ExceptionSender.git"
   },
 
   "dependencies": {

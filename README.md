@@ -55,7 +55,7 @@ In your `Statup.cs` you sould:
 
 ## Installation
 
-Use NuGet package [Logger.ExceptionSender](https://www.nuget.org/packages/Logger.ExceptionSender)
+Use NuGet package [Logging.ExceptionSender](https://www.nuget.org/packages/Logging.ExceptionSender)
 
 ### Dependencies
 
