@@ -14,6 +14,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Logging.ExceptionSender", "src\Logging.ExceptionSender\Logging.ExceptionSender.xproj", "{D00984E9-3385-43B5-92E5-7DDCCF0B3E91}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{EF8720DE-B5D7-4F87-86B2-8493ED9BCDAF}"
+	ProjectSection(SolutionItems) = preProject
+		docs\mailgun.png = docs\mailgun.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +35,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D00984E9-3385-43B5-92E5-7DDCCF0B3E91} = {22F5E94F-501A-4B2D-B69B-56D3F58C6C4C}
+		{EF8720DE-B5D7-4F87-86B2-8493ED9BCDAF} = {3E31EDE7-E329-48CB-83C9-7AB6841EA02E}
 	EndGlobalSection
 EndGlobal

@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.0.0-beta1",
+  "version": "1.0.0",
   "title": "Logger.ExceptionSender",
   "description": "Saves exception info (and some logs before) into text file and emails them to you via MailGun",
   "authors": [ "Dmitry Popov" ],
@@ -19,7 +19,7 @@
     "Microsoft.Extensions.OptionsModel": "1.0.0-rc1-final",
     "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final",
     "RecurrentTasks": "2.0.0",
-    "RestSharp": "105.1.0"
+    "RestSharp": "105.2.3"
   },
 
   "frameworks": {

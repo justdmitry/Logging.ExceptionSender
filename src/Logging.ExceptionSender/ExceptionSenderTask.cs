@@ -51,7 +51,7 @@
             // создаем отправителя
             var restClient = new RestClient();
             restClient.BaseUrl = new Uri(options.MailgunBaseUrl + options.MailgunDomain);
-            restClient.Authenticator = new HttpBasicAuthenticator("api", options.MailgunApiKey);
+            restClient.Authenticator = new RestSharp.Authenticators.HttpBasicAuthenticator("api", options.MailgunApiKey);
 
             var count = 0;
             foreach (string exception in exceptions)
