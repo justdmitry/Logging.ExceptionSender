@@ -2,14 +2,14 @@
 {
     using System;
     using System.IO;
-    using Microsoft.Extensions.PlatformAbstractions;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using Microsoft.Extensions.OptionsModel;
-    using RestSharp;
+    using Microsoft.Extensions.Options;
+
     using RecurrentTasks;
 
-    public class ExceptionSenderTask : TaskBase<TaskRunStatus>
+    public abstract class ExceptionSenderTask : TaskBase<TaskRunStatus>
     {
         private static readonly TimeSpan ShortInterval = TimeSpan.FromMinutes(1);
 
@@ -23,16 +23,16 @@
             this.options = options.Value;
         }
 
-        protected override void Run(IServiceProvider serviceProvider, TaskRunStatus runStatis)
+        protected override void Run(IServiceProvider serviceProvider, TaskRunStatus runStatus)
         {
-            var appEnv = serviceProvider.GetService<IApplicationEnvironment>();
+            var appEnv = serviceProvider.GetService<IHostingEnvironment>();
 
-            var baseDir = Path.Combine(appEnv.ApplicationBasePath, options.FolderName);
+            var baseDir = Path.Combine(appEnv.ContentRootPath, options.FolderName);
 
             if (!Directory.Exists(baseDir))
             {
                 Interval = LongInterval;
-                Logger.LogVerbose("Папка с логами ошибок не существует, нечего отправлять: " + baseDir);
+                Logger.LogInformation("Папка с логами ошибок не существует, нечего отправлять: {0}", baseDir);
                 return;
             }
 
@@ -41,69 +41,33 @@
             if (exceptions.Length == 0)
             {
                 Interval = LongInterval;
-                Logger.LogVerbose("Папка с логами ошибок пуста, нечего отправлять: " + baseDir);
+                Logger.LogInformation("Папка с логами ошибок пуста, нечего отправлять: {0} ", baseDir);
                 return;
             }
 
-            // есть что отправлять - значит 
+            // есть что отправлять - значит "на случай ошибок" уменьшает интервал (до след. попытки)
             Interval = ShortInterval;
-
-            // создаем отправителя
-            var restClient = new RestClient();
-            restClient.BaseUrl = new Uri(options.MailgunBaseUrl + options.MailgunDomain);
-            restClient.Authenticator = new RestSharp.Authenticators.HttpBasicAuthenticator("api", options.MailgunApiKey);
 
             var count = 0;
             foreach (string exception in exceptions)
             {
-                string mailSubject = "";
-                string mailBody = "";
-                string exceptionFilePath = Path.Combine(exception, options.ExceptionFileName);
+                var exceptionFilePath = Path.Combine(exception, options.ExceptionFileName);
                 if (File.Exists(exceptionFilePath))
                 {
-                    string exceptionStrings = File.ReadAllText(exceptionFilePath);
-                    mailSubject = exceptionStrings.Substring(0, exceptionStrings.IndexOf("\r\n"));
-                    mailBody = exceptionStrings;
+                    var exceptionText = File.ReadAllText(exceptionFilePath);
 
-                    RestRequest request = new RestRequest();
-                    request.Resource = "messages";
-                    request.AddParameter("from", options.From.ToString());
-                    foreach (var to in options.To)
-                    {
-                        request.AddParameter("to", to.ToString());
-                    }
-                    request.AddParameter("subject", mailSubject);
-                    request.AddParameter("text", mailBody);
+                    var logFile = new FileInfo(Path.Combine(exception, options.LogFileName));
 
-                    string logFilePath = Path.Combine(exception, options.LogFileName);
-                    if (File.Exists(logFilePath))
-                    {
-                        byte[] log = File.ReadAllBytes(logFilePath);
-                        request.AddFile("attachment", log, options.LogFileName);
-                    }
-                    request.Method = Method.POST;
-                    var response = restClient.Execute<MailgunResponse>(request);
+                    Send(serviceProvider, runStatus, exceptionText, logFile);
 
-                    if (response.ResponseStatus != ResponseStatus.Completed)
-                    {
-                        throw new ApplicationException($"Не удалось отправить письмо. Ответ сервера {response.ResponseStatus}, текст: \n {response.Content}");
-                    }
-                    else
-                    {
-                        Directory.Delete(exception, true);
-                        count++;
-                    }
+                    Directory.Delete(exception, true);
+                    count++;
                 }
             }
-            Logger.LogVerbose($"Успешно отправлено {count} писем с логами ошибок.");
+            Logger.LogInformation("Успешно отправлено {0} писем с логами ошибок.", count);
         }
 
-        private class MailgunResponse
-        {
-            public string Message { get; set; }
-
-            public string Id { get; set; }
-        }
+        protected abstract void Send(IServiceProvider serviceProvider, TaskRunStatus runStatus, string text, FileInfo logFile);
     }
 }
 
