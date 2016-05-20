@@ -86,6 +86,6 @@ In `Configure` method of your `Statup.cs`:
 * 1.0.0 (Feb 8, 2016)
   * Initial release
 
-[1]: https://github.com/iflight/Logging
+[1]: https://github.com/iflight/Logging.Memory
 [2]: https://github.com/justdmitry/RecurrentTasks
 [3]: https://www.mailgun.com
