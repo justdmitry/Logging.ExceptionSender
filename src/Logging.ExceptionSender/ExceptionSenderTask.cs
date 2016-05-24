@@ -2,13 +2,14 @@
 {
     using System;
     using System.IO;
+
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
 
     using RecurrentTasks;
-
+    
     public abstract class ExceptionSenderTask : TaskBase<TaskRunStatus>
     {
         private static readonly TimeSpan ShortInterval = TimeSpan.FromMinutes(1);
@@ -17,10 +18,48 @@
 
         private ExceptionSenderOptions options;
 
-        public ExceptionSenderTask(ILoggerFactory loggerFactory, IServiceScopeFactory serviceScopeFactory, IOptions<ExceptionSenderOptions> options)
+        private IHostingEnvironment hostingEnvironment;
+
+        public ExceptionSenderTask(ILoggerFactory loggerFactory, IServiceScopeFactory serviceScopeFactory, IOptions<ExceptionSenderOptions> options, IHostingEnvironment hostingEnvironment)
             : base(loggerFactory, ShortInterval, serviceScopeFactory)
         {
             this.options = options.Value;
+            this.hostingEnvironment = hostingEnvironment;
+        }
+
+        /// <summary>
+        /// Append information about exception to send queue. Real send will perform later, in separate thread/task.
+        /// </summary>
+        public void LogException(Exception ex)
+        {
+            var baseDir = Path.Combine(hostingEnvironment.ContentRootPath, options.FolderName);
+
+            var subfolderName = string.Format("{0}{1}", options.SubfolderPrefix, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-fff"));
+            var subfolderPath = Path.Combine(baseDir, options.FolderName, subfolderName);
+
+            Directory.CreateDirectory(subfolderPath);
+
+            var path = Path.Combine(subfolderPath, options.ExceptionFileName);
+
+            var errorText = string.Format("{2}: {0}\r\n{1}", ex.Message, ex.StackTrace, ex.GetType().FullName);
+            File.WriteAllText(path, errorText);
+            Logger.LogInformation("Exception details saved to: {0}", path);
+
+            path = Path.Combine(subfolderPath, options.LogFileName);
+
+            var log = iflight.Logging.MemoryLogger.LogList;
+            File.WriteAllLines(path, log);
+            Logger.LogInformation("Exception log saved to: {0}", path);
+
+            if (IsStarted)
+            {
+                TryRunImmediately();
+                Logger.LogDebug("TryRunImmediately called");
+            }
+            else
+            {
+                Logger.LogWarning("Task not started - mail with exception data will not be sent");
+            }
         }
 
         protected override void Run(IServiceProvider serviceProvider, TaskRunStatus runStatus)

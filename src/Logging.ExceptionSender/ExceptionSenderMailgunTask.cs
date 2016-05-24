@@ -5,6 +5,7 @@
     using System.Net;
     using System.Net.Http;
 
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
@@ -15,8 +16,8 @@
     {
         private ExceptionSenderMailgunOptions options;
 
-        public ExceptionSenderMailgunTask(ILoggerFactory loggerFactory, IServiceScopeFactory serviceScopeFactory, IOptions<ExceptionSenderMailgunOptions> options)
-            : base(loggerFactory, serviceScopeFactory, options)
+        public ExceptionSenderMailgunTask(ILoggerFactory loggerFactory, IServiceScopeFactory serviceScopeFactory, IOptions<ExceptionSenderMailgunOptions> options, IHostingEnvironment hostingEnvironment)
+            : base(loggerFactory, serviceScopeFactory, options, hostingEnvironment)
         {
             this.options = options.Value;
         }

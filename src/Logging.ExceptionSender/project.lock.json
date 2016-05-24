@@ -216,7 +216,7 @@
           "ref/netstandard1.3/_._": {}
         }
       },
-      "RecurrentTasks/2.1.0": {
+      "RecurrentTasks/2.2.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc2-final",
@@ -1012,11 +1012,11 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "RecurrentTasks/2.1.0": {
-      "sha512": "9yui6TWM744zFG6gc4aj3IbDhTI/eKz1WAWwR0edgSyofOl+8i+lcs2DMUGXGtn314AmdbXUo3qPUhW4JWFnxQ==",
+    "RecurrentTasks/2.2.0": {
+      "sha512": "eUQsjySSZC70DQgJZfiwjHb1f4OCqoYxOyRUmF4teud150TgudmCB4BaAFHImKCGfx9JLEnswE7Z8EofNkeK6w==",
       "type": "package",
       "files": [
-        "RecurrentTasks.2.1.0.nupkg.sha512",
+        "RecurrentTasks.2.2.0.nupkg.sha512",
         "RecurrentTasks.nuspec",
         "lib/netstandard1.3/RecurrentTasks.dll"
       ]
@@ -3301,7 +3301,7 @@
       "Microsoft.AspNetCore.Hosting.Abstractions >= 1.0.0-rc2-final",
       "Microsoft.Extensions.Options >= 1.0.0-rc2-final",
       "Microsoft.Extensions.PlatformAbstractions >= 1.0.0-rc2-final",
-      "RecurrentTasks >= 2.1.0",
+      "RecurrentTasks >= 2.2.0",
       "System.Net.Http >= 4.0.1-rc2-24027"
     ],
     ".NETStandard,Version=v1.3": []
