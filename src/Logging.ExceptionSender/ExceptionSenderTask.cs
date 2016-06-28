@@ -32,7 +32,7 @@
         /// </summary>
         public void LogException(Exception ex)
         {
-            var baseDir = Path.Combine(hostingEnvironment.ContentRootPath, options.FolderName);
+            var baseDir = hostingEnvironment.ContentRootPath;
 
             var subfolderName = string.Format("{0}{1}", options.SubfolderPrefix, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-fff"));
             var subfolderPath = Path.Combine(baseDir, options.FolderName, subfolderName);
@@ -41,7 +41,7 @@
 
             var path = Path.Combine(subfolderPath, options.ExceptionFileName);
 
-            var errorText = string.Format("{2}: {0}\r\n{1}", ex.Message, ex.StackTrace, ex.GetType().FullName);
+            var errorText = string.Format("{2}: {0}\r\n\r\n{1}", ex.Message, ex.ToString(), ex.GetType().FullName);
             File.WriteAllText(path, errorText);
             Logger.LogInformation("Exception details saved to: {0}", path);
 
