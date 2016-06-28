@@ -1,5 +1,5 @@
 ﻿{
-  "version": "2.1.0-preview1",
+  "version": "2.1.0",
   "title": "Logging.ExceptionSender",
   "copyright": "Dmitry Popov, 2016",
 
@@ -7,7 +7,7 @@
     "summary": "Saves exception info (and some logs before) into text file and emails them to you via MailGun",
     "tags": [ "exception", "mail", "stacktrace", "recurrent", "aspnetcore" ],
     "owners": [ "Dmitry Popov" ],
-    "releaseNotes": "ExceptionSenderTask.LogException method for explicit exception logging",
+    "releaseNotes": "Upgrade to RTM; ExceptionSenderTask.LogException method for explicit exception logging",
     "licenseUrl": "https://github.com/justdmitry/Logging.ExceptionSender/blob/master/LICENSE",
     "projectUrl": "https://github.com/justdmitry/Logging.ExceptionSender",
     "repository": {
@@ -18,11 +18,12 @@
 
   "dependencies": {
     "Logging.Memory": "1.1.0",
-    "Microsoft.AspNetCore.Hosting.Abstractions": "1.0.0-rc2-final",
-    "Microsoft.Extensions.Options": "1.0.0-rc2-final",
-    "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc2-final",
-    "RecurrentTasks": "2.2.0",
-    "System.Net.Http": "4.0.1-rc2-24027"
+    "Microsoft.AspNetCore.Hosting.Abstractions": "1.0.0",
+    "Microsoft.Extensions.Options": "1.0.0",
+    "Microsoft.Extensions.PlatformAbstractions": "1.0.0",
+    "RecurrentTasks": "2.3.0",
+    "System.Net.Http": "4.1.0",
+    "System.IO.FileSystem": "4.0.1"
   },
 
   "frameworks": {
