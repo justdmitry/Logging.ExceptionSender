@@ -3,13 +3,13 @@
   "version": 2,
   "targets": {
     ".NETStandard,Version=v1.3": {
-      "Logging.Memory/1.1.0": {
+      "Logging.Memory/1.2.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Configuration.Abstractions": "1.0.0-rc2-final",
-          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc2-final",
-          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc2-final",
-          "System.Threading": "4.0.11-rc2-24027"
+          "Microsoft.Extensions.Configuration.Abstractions": "1.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0",
+          "Microsoft.Extensions.PlatformAbstractions": "1.0.0",
+          "System.Threading": "4.0.11"
         },
         "compile": {
           "lib/netstandard1.3/Logging.Memory.dll": {}
@@ -232,7 +232,7 @@
           "ref/netstandard1.3/_._": {}
         }
       },
-      "RecurrentTasks/2.3.0": {
+      "RecurrentTasks/2.4.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
@@ -826,11 +826,12 @@
     }
   },
   "libraries": {
-    "Logging.Memory/1.1.0": {
-      "sha512": "eDf61Fm2srbG7p5HY1C6qgxWn/N8bWxqA/RZwCD3VyQgXlVHCjm1wwZHDELFA5iEkZTpv91kcdK2nVRMJhp/xA==",
+    "Logging.Memory/1.2.0": {
+      "sha512": "Bp0IzJu3gB7xGmLNylc2wxgp1RG3iqUwQwZwEbI+YlnKmcOXhqzyFzYGTneaI12IFaRqa7oltM68kWFYf2XNhw==",
       "type": "package",
+      "path": "Logging.Memory/1.2.0",
       "files": [
-        "Logging.Memory.1.1.0.nupkg.sha512",
+        "Logging.Memory.1.2.0.nupkg.sha512",
         "Logging.Memory.nuspec",
         "lib/net451/Logging.Memory.dll",
         "lib/netstandard1.3/Logging.Memory.dll"
@@ -1029,12 +1030,12 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "RecurrentTasks/2.3.0": {
-      "sha512": "6kZoljr0P0zzOD5JxDQ/fV+SWh/02Nmq/MLLpHr4oZB0tQLul0RY2mjbm9hB9szbZysAHdY0nmd14aTAW6u5XA==",
+    "RecurrentTasks/2.4.0": {
+      "sha512": "ks3b/a95h66D+rfqZxLxJcu4hx1RUplHZCoANwlVbBWE49lJKF67+3mnFgfI26HbGwr1/Tst42MtXPTAGH3kdA==",
       "type": "package",
-      "path": "RecurrentTasks/2.3.0",
+      "path": "RecurrentTasks/2.4.0",
       "files": [
-        "RecurrentTasks.2.3.0.nupkg.sha512",
+        "RecurrentTasks.2.4.0.nupkg.sha512",
         "RecurrentTasks.nuspec",
         "lib/netstandard1.3/RecurrentTasks.dll"
       ]
@@ -3220,11 +3221,11 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Logging.Memory >= 1.1.0",
+      "Logging.Memory >= 1.2.0",
       "Microsoft.AspNetCore.Hosting.Abstractions >= 1.0.0",
       "Microsoft.Extensions.Options >= 1.0.0",
       "Microsoft.Extensions.PlatformAbstractions >= 1.0.0",
-      "RecurrentTasks >= 2.3.0",
+      "RecurrentTasks >= 2.4.0",
       "System.IO.FileSystem >= 4.0.1",
       "System.Net.Http >= 4.1.0"
     ],
