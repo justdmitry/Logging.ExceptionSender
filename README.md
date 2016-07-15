@@ -81,17 +81,6 @@ app.UseExceptionSender();
 app.ApplicationServices.GetRequiredService<ExceptionSenderTask>().Start();
 ```
 
-## Version history
-
-* 2.1.0 (June 28, 2016)
-    * Upgrade to ASP.NET Core 1.0.0 RTM
-    * `ExceptionSenderTask.LogException` method for explicit exception logging
-* 2.0.0 (May 20, 2016)
-    * Upgrade to ASP.NET Core RC2
-    * Removed `RestSharp` dependency
-    * `ExceptionSenderTask` now abstract, you can use (implement) other mail provider instead of MailGun
-* 1.0.0 (Feb 8, 2016)
-    * Initial release
 
 [1]: https://github.com/iflight/Logging.Memory
 [2]: https://github.com/justdmitry/RecurrentTasks
