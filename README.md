@@ -6,6 +6,8 @@
 
 Written for **ASP.NET Core** (ASP.NET 5, ASP.NET vNext) projects.
 
+[![NuGet](https://img.shields.io/nuget/v/Logging.ExceptionSender.svg?maxAge=86400&style=flat)](https://www.nuget.org/packages/Logging.ExceptionSender/)
+
 ## Main features
 
 * Exception message and stacktrace are captured;
