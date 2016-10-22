@@ -37,5 +37,22 @@
                     t.AfterRunFail += (sender, e) => { exceptionAccumulator.SaveException(e.Exception); };
                 });
         }
+
+        public static void StartTaskWithExceptionSender<TRunnable>(this IApplicationBuilder app, TimeSpan interval, TimeSpan initialTimeout)
+            where TRunnable : IRunnable
+        {
+            if (app == null)
+            {
+                throw new ArgumentNullException(nameof(app));
+            }
+
+            var exceptionAccumulator = app.ApplicationServices.GetRequiredService<IExceptionAccumulator>();
+
+            app.StartTask<TRunnable>(t =>
+            {
+                t.Interval = interval;
+                t.AfterRunFail += (sender, e) => { exceptionAccumulator.SaveException(e.Exception); };
+            }, initialTimeout);
+        }
     }
 }
