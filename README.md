@@ -2,7 +2,7 @@
 
 `ExceptionSenderMiddleware` watches for unhandled exceptions. When found - details are saved to text files in specific folder.
 
-`ExceptionSenderTask` monitors that folder and sends exception info to you by email (using [MailGun.com][3])
+`ExceptionSenderTask` monitors that folder and sends exception info to you by email (using [MailGun.com][3], but you can add your own)
 
 Written for **ASP.NET Core** (ASP.NET 5, ASP.NET vNext) projects.
 
@@ -15,7 +15,7 @@ Written for **ASP.NET Core** (ASP.NET 5, ASP.NET vNext) projects.
 * Captured data saved in `logs` subdirectory for later processing;
 * Task (based on [RecurrentTasks][2]) is used for checking new exception data;
 * Every single exception - one email to you;
-* [MailGun][3] is used to send emails (free quota 10K emails/month), you can add new mail providers (inherit from `MailSenderTask`);
+* [MailGun][3] is used to send emails (free quota 10K emails/month), you can add new mail providers (inherit from `ExceptionSenderTask`);
 * When new exception is caught - tries to send immediately;
 * When message sucessfully sent - files are deleted from disk;
 * Can send message to multiple recipients (multiple `To`)
@@ -65,9 +65,9 @@ Sample (minimum) configuration in `config.json` (aka `appsettings.json`):
 In `ConfigureServices` method of your `Startup.cs`:
 
 ```csharp
-services.AddSingleton<ExceptionSenderTask, ExceptionSenderMailgunTask>();
 services.Configure<ExceptionSenderOptions>(Configuration.GetSection("ExceptionSender"));
 services.Configure<ExceptionSenderMailgunOptions>(Configuration.GetSection("ExceptionSender"));
+services.AddExceptionSender<ExceptionSenderMailgunTask>();
 ```
 
 In `Configure` method of your `Statup.cs`:
@@ -76,11 +76,8 @@ In `Configure` method of your `Statup.cs`:
 // Enable in-memory logging
 loggerFactory.AddMemory();
 
-// Add ExceptionSenderMiddleware into chain (for saving exception info)
+// Activate all ExceptionSender components
 app.UseExceptionSender();
-
-// Start background task for sending mail
-app.ApplicationServices.GetRequiredService<ExceptionSenderTask>().Start();
 ```
 
 

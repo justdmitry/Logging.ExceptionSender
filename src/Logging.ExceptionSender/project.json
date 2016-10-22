@@ -1,13 +1,13 @@
-﻿{
-  "version": "2.2.1",
+{
+  "version": "3.0.0-beta1",
   "title": "Logging.ExceptionSender",
   "copyright": "Dmitry Popov, 2016",
 
   "packOptions": {
-    "summary": "Saves exception info (and some logs before) into text file and emails them to you via MailGun",
+    "summary": "Saves exception info (and some logs before) into text file and emails them to you",
     "tags": [ "exception", "mail", "stacktrace", "recurrent", "aspnetcore" ],
     "owners": [ "Dmitry Popov" ],
-    "releaseNotes": "Target frameworks net451 and net46 are back",
+    "releaseNotes": "Initial v3 release",
     "licenseUrl": "https://github.com/justdmitry/Logging.ExceptionSender/blob/master/LICENSE",
     "projectUrl": "https://github.com/justdmitry/Logging.ExceptionSender",
     "repository": {
@@ -21,7 +21,7 @@
     "Microsoft.AspNetCore.Hosting.Abstractions": "1.0.0",
     "Microsoft.Extensions.Options": "1.0.0",
     "Microsoft.Extensions.PlatformAbstractions": "1.0.0",
-    "RecurrentTasks": "2.4.1"
+    "RecurrentTasks": "3.0.0-beta2"
   },
 
   "frameworks": {

@@ -6,7 +6,6 @@
     using System.Net.Http;
 
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
 
@@ -16,13 +15,16 @@
     {
         private ExceptionSenderMailgunOptions options;
 
-        public ExceptionSenderMailgunTask(ILoggerFactory loggerFactory, IServiceScopeFactory serviceScopeFactory, IOptions<ExceptionSenderMailgunOptions> options, IHostingEnvironment hostingEnvironment)
-            : base(loggerFactory, serviceScopeFactory, options, hostingEnvironment)
+        public ExceptionSenderMailgunTask(
+            ILogger<ExceptionSenderMailgunTask> logger, 
+            IOptions<ExceptionSenderMailgunOptions> options, 
+            IHostingEnvironment hostingEnvironment)
+            : base(logger, options.Value, hostingEnvironment)
         {
             this.options = options.Value;
         }
 
-        protected override void Send(IServiceProvider serviceProvider, TaskRunStatus runStatus, string text, FileInfo logFile)
+        protected override void Send(ITask currentTask, string text, FileInfo logFile)
         {
             var mailSubject = text.Substring(0, text.IndexOf("\r\n"));
 
