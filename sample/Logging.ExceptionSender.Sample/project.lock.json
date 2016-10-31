@@ -1828,7 +1828,7 @@
           "lib/netstandard1.0/NuGet.Versioning.dll": {}
         }
       },
-      "RecurrentTasks/3.0.0-beta2": {
+      "RecurrentTasks/3.0.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
@@ -3726,7 +3726,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "Logging.ExceptionSender/3.0.0-beta1": {
+      "Logging.ExceptionSender/3.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.3",
         "dependencies": {
@@ -3734,7 +3734,7 @@
           "Microsoft.AspNetCore.Hosting.Abstractions": "1.0.0",
           "Microsoft.Extensions.Options": "1.0.0",
           "Microsoft.Extensions.PlatformAbstractions": "1.0.0",
-          "RecurrentTasks": "3.0.0-beta2",
+          "RecurrentTasks": "3.0.0",
           "System.IO.FileSystem": "4.0.1",
           "System.Net.Http": "4.1.0"
         },
@@ -5222,12 +5222,12 @@
         "lib/netstandard1.0/NuGet.Versioning.xml"
       ]
     },
-    "RecurrentTasks/3.0.0-beta2": {
-      "sha512": "8Js0wi3X/mMpIj8Qw1aEiaUw8Ozjjy6EgAWdDGByptMU+cLyhvqUunC9AL5xMCi1hu2IQWP2/JlsOV4qmUn7/Q==",
+    "RecurrentTasks/3.0.0": {
+      "sha512": "yHfWxJq1g1P9H8skUbEcO6D0fUrpe4/jWxJX9cWIkVIb3CxekjgEBtRhduyK0OHrwoqJkouZOyq2G15RNccffw==",
       "type": "package",
-      "path": "RecurrentTasks/3.0.0-beta2",
+      "path": "RecurrentTasks/3.0.0",
       "files": [
-        "RecurrentTasks.3.0.0-beta2.nupkg.sha512",
+        "RecurrentTasks.3.0.0.nupkg.sha512",
         "RecurrentTasks.nuspec",
         "lib/net451/RecurrentTasks.dll",
         "lib/net46/RecurrentTasks.dll",
@@ -9799,7 +9799,7 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "Logging.ExceptionSender/3.0.0-beta1": {
+    "Logging.ExceptionSender/3.0.0": {
       "type": "project",
       "path": "../../src/Logging.ExceptionSender/project.json",
       "msbuildProject": "../../src/Logging.ExceptionSender/Logging.ExceptionSender.xproj"

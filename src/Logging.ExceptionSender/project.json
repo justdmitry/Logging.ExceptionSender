@@ -1,5 +1,5 @@
 {
-  "version": "3.0.0-beta2",
+  "version": "3.0.0",
   "title": "Logging.ExceptionSender",
   "copyright": "Dmitry Popov, 2016",
 
@@ -7,7 +7,7 @@
     "summary": "Saves exception info (and some logs before) into text file and emails them to you",
     "tags": [ "exception", "mail", "stacktrace", "recurrent", "aspnetcore" ],
     "owners": [ "Dmitry Popov" ],
-    "releaseNotes": "Initial v3 release",
+    "releaseNotes": "Initial v3 release (upgrade to RecurrentTasks v3)",
     "licenseUrl": "https://github.com/justdmitry/Logging.ExceptionSender/blob/master/LICENSE",
     "projectUrl": "https://github.com/justdmitry/Logging.ExceptionSender",
     "repository": {
@@ -21,7 +21,7 @@
     "Microsoft.AspNetCore.Hosting.Abstractions": "1.0.0",
     "Microsoft.Extensions.Options": "1.0.0",
     "Microsoft.Extensions.PlatformAbstractions": "1.0.0",
-    "RecurrentTasks": "3.0.0-beta2"
+    "RecurrentTasks": "3.0.0"
   },
 
   "frameworks": {
