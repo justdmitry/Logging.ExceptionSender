@@ -8,12 +8,12 @@
     public class ExceptionSenderMiddleware
     {
         private readonly RequestDelegate nextMiddleware;
-        private readonly ExceptionSenderTask senderTask;
+        private readonly IExceptionAccumulator exceptionAccumulator;
 
-        public ExceptionSenderMiddleware(RequestDelegate next, ExceptionSenderTask senderTask)
+        public ExceptionSenderMiddleware(RequestDelegate next, IExceptionAccumulator exceptionAccumulator)
         {
             nextMiddleware = next;
-            this.senderTask = senderTask;
+            this.exceptionAccumulator = exceptionAccumulator;
         }
 
         public async Task Invoke(HttpContext context)
@@ -24,7 +24,7 @@
             }
             catch (Exception ex)
             {
-                senderTask.LogException(ex);
+                exceptionAccumulator.SaveException(ex);
                 throw;
             }
         }

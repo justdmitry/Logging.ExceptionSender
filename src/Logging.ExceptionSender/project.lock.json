@@ -181,9 +181,10 @@
           "lib/netstandard1.0/Microsoft.Extensions.Primitives.dll": {}
         }
       },
-      "RecurrentTasks/2.4.1": {
+      "RecurrentTasks/3.0.0": {
         "type": "package",
         "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "1.0.0"
         },
@@ -550,9 +551,10 @@
           "lib/netstandard1.0/Microsoft.Extensions.Primitives.dll": {}
         }
       },
-      "RecurrentTasks/2.4.1": {
+      "RecurrentTasks/3.0.0": {
         "type": "package",
         "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "1.0.0"
         },
@@ -970,9 +972,10 @@
           "ref/netstandard1.3/_._": {}
         }
       },
-      "RecurrentTasks/2.4.1": {
+      "RecurrentTasks/3.0.0": {
         "type": "package",
         "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "1.0.0",
           "System.Threading": "4.0.11"
@@ -1768,12 +1771,12 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "RecurrentTasks/2.4.1": {
-      "sha512": "x1WtqD1KJOIguhvVYb7iGs1joqTCv+yJhp243Da8rbt+6762gKPMUHfrhxcsjt8+8YeGxP438w1XqXDB/MxoYw==",
+    "RecurrentTasks/3.0.0": {
+      "sha512": "yHfWxJq1g1P9H8skUbEcO6D0fUrpe4/jWxJX9cWIkVIb3CxekjgEBtRhduyK0OHrwoqJkouZOyq2G15RNccffw==",
       "type": "package",
-      "path": "RecurrentTasks/2.4.1",
+      "path": "RecurrentTasks/3.0.0",
       "files": [
-        "RecurrentTasks.2.4.1.nupkg.sha512",
+        "RecurrentTasks.3.0.0.nupkg.sha512",
         "RecurrentTasks.nuspec",
         "lib/net451/RecurrentTasks.dll",
         "lib/net46/RecurrentTasks.dll",
@@ -3965,7 +3968,7 @@
       "Microsoft.AspNetCore.Hosting.Abstractions >= 1.0.0",
       "Microsoft.Extensions.Options >= 1.0.0",
       "Microsoft.Extensions.PlatformAbstractions >= 1.0.0",
-      "RecurrentTasks >= 2.4.1"
+      "RecurrentTasks >= 3.0.0"
     ],
     ".NETFramework,Version=v4.5.1": [
       "System.Net.Http >= 4.0.0"
