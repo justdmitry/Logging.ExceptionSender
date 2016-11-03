@@ -1828,7 +1828,7 @@
           "lib/netstandard1.0/NuGet.Versioning.dll": {}
         }
       },
-      "RecurrentTasks/3.0.0": {
+      "RecurrentTasks/3.1.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
@@ -3734,7 +3734,7 @@
           "Microsoft.AspNetCore.Hosting.Abstractions": "1.0.0",
           "Microsoft.Extensions.Options": "1.0.0",
           "Microsoft.Extensions.PlatformAbstractions": "1.0.0",
-          "RecurrentTasks": "3.0.0",
+          "RecurrentTasks": "3.1.0",
           "System.IO.FileSystem": "4.0.1",
           "System.Net.Http": "4.1.0"
         },
@@ -5222,12 +5222,12 @@
         "lib/netstandard1.0/NuGet.Versioning.xml"
       ]
     },
-    "RecurrentTasks/3.0.0": {
-      "sha512": "yHfWxJq1g1P9H8skUbEcO6D0fUrpe4/jWxJX9cWIkVIb3CxekjgEBtRhduyK0OHrwoqJkouZOyq2G15RNccffw==",
+    "RecurrentTasks/3.1.0": {
+      "sha512": "WWbyOjmosIYupoTUFyvQOo5X8A56dlsF7BcGEDA11F9O0tw8Gx4br5UQRvJ3Zl982p98bCgIyKRYz3xuL0Y1vw==",
       "type": "package",
-      "path": "RecurrentTasks/3.0.0",
+      "path": "RecurrentTasks/3.1.0",
       "files": [
-        "RecurrentTasks.3.0.0.nupkg.sha512",
+        "RecurrentTasks.3.1.0.nupkg.sha512",
         "RecurrentTasks.nuspec",
         "lib/net451/RecurrentTasks.dll",
         "lib/net46/RecurrentTasks.dll",
