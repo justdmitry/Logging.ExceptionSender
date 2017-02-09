@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Copyright>Dmitry Popov, 2016</Copyright>
+    <AssemblyTitle>Logging.ExceptionSender</AssemblyTitle>
+    <VersionPrefix>3.2.0</VersionPrefix>
+    <TargetFrameworks>net451;net46;netstandard1.3</TargetFrameworks>
+    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
+    <AssemblyName>Logging.ExceptionSender</AssemblyName>
+    <PackageId>Logging.ExceptionSender</PackageId>
+    <PackageTags>exception;mail;stacktrace;recurrent;aspnetcore</PackageTags>
+    <PackageReleaseNotes>RecurrentTasks updated to 3.2.0</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/justdmitry/Logging.ExceptionSender</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/justdmitry/Logging.ExceptionSender/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/justdmitry/Logging.ExceptionSender.git</RepositoryUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Logging.Memory" Version="1.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="1.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="1.0.1" />
+    <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.0.0" />
+    <PackageReference Include="RecurrentTasks" Version="3.2.0" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+</Project>

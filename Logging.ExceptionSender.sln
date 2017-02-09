@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26127.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{22F5E94F-501A-4B2D-B69B-56D3F58C6C4C}"
 EndProject
@@ -12,8 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Logging.ExceptionSender", "src\Logging.ExceptionSender\Logging.ExceptionSender.xproj", "{D00984E9-3385-43B5-92E5-7DDCCF0B3E91}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{EF8720DE-B5D7-4F87-86B2-8493ED9BCDAF}"
 	ProjectSection(SolutionItems) = preProject
 		docs\mailgun.png = docs\mailgun.png
@@ -21,7 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{EF8720DE-B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{F54385A8-24DF-4758-8642-A3113A14A9A3}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Logging.ExceptionSender.Sample", "sample\Logging.ExceptionSender.Sample\Logging.ExceptionSender.Sample.xproj", "{1A7FA000-6490-4B88-95E6-6CB6B552B0EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging.ExceptionSender", "src\Logging.ExceptionSender\Logging.ExceptionSender.csproj", "{D00984E9-3385-43B5-92E5-7DDCCF0B3E91}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging.ExceptionSender.Sample", "sample\Logging.ExceptionSender.Sample\Logging.ExceptionSender.Sample.csproj", "{1A7FA000-6490-4B88-95E6-6CB6B552B0EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,8 +42,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{D00984E9-3385-43B5-92E5-7DDCCF0B3E91} = {22F5E94F-501A-4B2D-B69B-56D3F58C6C4C}
 		{EF8720DE-B5D7-4F87-86B2-8493ED9BCDAF} = {3E31EDE7-E329-48CB-83C9-7AB6841EA02E}
+		{D00984E9-3385-43B5-92E5-7DDCCF0B3E91} = {22F5E94F-501A-4B2D-B69B-56D3F58C6C4C}
 		{1A7FA000-6490-4B88-95E6-6CB6B552B0EF} = {F54385A8-24DF-4758-8642-A3113A14A9A3}
 	EndGlobalSection
 EndGlobal
