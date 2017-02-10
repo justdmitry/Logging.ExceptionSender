@@ -13,6 +13,9 @@
     <PackageLicenseUrl>https://github.com/justdmitry/Logging.ExceptionSender/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/justdmitry/Logging.ExceptionSender.git</RepositoryUrl>
+    <Authors>just_dmitry</Authors>
+    <Company />
+    <Description>Catches all unhandled exceptions and sends email with details and stacktrace to you.</Description>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Logging.Memory" Version="1.2.0" />
