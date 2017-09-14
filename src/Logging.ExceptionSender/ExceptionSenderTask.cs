@@ -2,12 +2,11 @@
 {
     using System;
     using System.IO;
-
+    using System.Threading;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Logging;
-
     using RecurrentTasks;
-    
+
     public abstract class ExceptionSenderTask : IRunnable
     {
         private static readonly TimeSpan ShortInterval = TimeSpan.FromMinutes(1);
@@ -21,8 +20,8 @@
         private string contentRootPath;
 
         public ExceptionSenderTask(
-            ILogger logger, 
-            ExceptionSenderOptions options, 
+            ILogger logger,
+            ExceptionSenderOptions options,
             IHostingEnvironment hostingEnvironment)
         {
             this.logger = logger;
@@ -30,7 +29,7 @@
             this.contentRootPath = hostingEnvironment.ContentRootPath;
         }
 
-        public void Run(ITask currentTask)
+        public void Run(ITask currentTask, CancellationToken cancellationToken)
         {
             var baseDir = Path.Combine(contentRootPath, options.FolderName);
 

@@ -2,13 +2,12 @@
   <PropertyGroup>
     <Copyright>Dmitry Popov, 2016</Copyright>
     <AssemblyTitle>Logging.ExceptionSender</AssemblyTitle>
-    <VersionPrefix>3.2.0</VersionPrefix>
-    <TargetFrameworks>net451;net46;netstandard1.3</TargetFrameworks>
-    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
+    <Version>3.3.0</Version>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <AssemblyName>Logging.ExceptionSender</AssemblyName>
     <PackageId>Logging.ExceptionSender</PackageId>
     <PackageTags>exception;mail;stacktrace;recurrent;aspnetcore</PackageTags>
-    <PackageReleaseNotes>RecurrentTasks updated to 3.2.0</PackageReleaseNotes>
+    <PackageReleaseNotes>Target platform now `netstandard2.0` (only); RecurrentTasks updated to 4.0.0; Fixed: log.txt remain locked if send failed.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/justdmitry/Logging.ExceptionSender</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/justdmitry/Logging.ExceptionSender/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
@@ -19,19 +18,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Logging.Memory" Version="1.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="1.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="1.0.1" />
-    <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.0.0" />
-    <PackageReference Include="RecurrentTasks" Version="3.2.0" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.0.0" />
+    <PackageReference Include="RecurrentTasks" Version="4.0.0" />
   </ItemGroup>
 </Project>
