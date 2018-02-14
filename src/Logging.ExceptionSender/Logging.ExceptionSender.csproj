@@ -2,12 +2,12 @@
   <PropertyGroup>
     <Copyright>Dmitry Popov, 2016</Copyright>
     <AssemblyTitle>Logging.ExceptionSender</AssemblyTitle>
-    <Version>3.3.0</Version>
+    <Version>3.4.1</Version>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <AssemblyName>Logging.ExceptionSender</AssemblyName>
     <PackageId>Logging.ExceptionSender</PackageId>
     <PackageTags>exception;mail;stacktrace;recurrent;aspnetcore</PackageTags>
-    <PackageReleaseNotes>Target platform now `netstandard2.0` (only); RecurrentTasks updated to 4.0.0; Fixed: log.txt remain locked if send failed.</PackageReleaseNotes>
+    <PackageReleaseNotes>RecurrentTasks updated to 5.0.0; IExceptionAccumulator.SaveExceptionAsync added</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/justdmitry/Logging.ExceptionSender</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/justdmitry/Logging.ExceptionSender/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
@@ -20,6 +20,6 @@
     <PackageReference Include="Logging.Memory" Version="1.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.0.0" />
-    <PackageReference Include="RecurrentTasks" Version="4.0.0" />
+    <PackageReference Include="RecurrentTasks" Version="5.0.0" />
   </ItemGroup>
 </Project>

@@ -24,7 +24,7 @@
             }
             catch (Exception ex)
             {
-                exceptionAccumulator.SaveException(ex);
+                await exceptionAccumulator.SaveExceptionAsync(ex);
                 throw;
             }
         }

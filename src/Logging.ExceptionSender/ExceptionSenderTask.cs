@@ -3,6 +3,7 @@
     using System;
     using System.IO;
     using System.Threading;
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Logging;
     using RecurrentTasks;
@@ -29,7 +30,7 @@
             this.contentRootPath = hostingEnvironment.ContentRootPath;
         }
 
-        public void Run(ITask currentTask, CancellationToken cancellationToken)
+        public async Task RunAsync(ITask currentTask, IServiceProvider scopeServiceProvider, CancellationToken cancellationToken)
         {
             var baseDir = Path.Combine(contentRootPath, options.FolderName);
 
@@ -58,11 +59,14 @@
                 var exceptionFilePath = Path.Combine(exception, options.ExceptionFileName);
                 if (File.Exists(exceptionFilePath))
                 {
-                    var exceptionText = File.ReadAllText(exceptionFilePath);
+                    using (var fs = File.OpenText(exceptionFilePath))
+                    {
+                        var exceptionText = await fs.ReadToEndAsync();
 
-                    var logFile = new FileInfo(Path.Combine(exception, options.LogFileName));
+                        var logFile = new FileInfo(Path.Combine(exception, options.LogFileName));
 
-                    Send(currentTask, exceptionText, logFile);
+                        await SendAsync(currentTask, exceptionText, logFile);
+                    }
 
                     Directory.Delete(exception, true);
                     count++;
@@ -71,7 +75,7 @@
             logger.LogInformation("Успешно отправлено {0} писем с логами ошибок.", count);
         }
 
-        protected abstract void Send(ITask currentTask, string text, FileInfo logFile);
+        protected abstract Task SendAsync(ITask currentTask, string text, FileInfo logFile);
     }
 }
 

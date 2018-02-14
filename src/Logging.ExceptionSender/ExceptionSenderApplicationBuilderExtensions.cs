@@ -31,10 +31,10 @@
 
             var exceptionAccumulator = app.ApplicationServices.GetRequiredService<IExceptionAccumulator>();
 
-            app.StartTask<TRunnable>(t => 
+            app.StartTask<TRunnable>(t =>
                 {
                     t.Interval = interval;
-                    t.AfterRunFail += (sender, e) => { exceptionAccumulator.SaveException(e.Exception); };
+                    t.AfterRunFailAsync += (sp, task, ex) => exceptionAccumulator.SaveExceptionAsync(ex);
                 });
         }
 
@@ -51,7 +51,7 @@
             app.StartTask<TRunnable>(t =>
             {
                 t.Interval = interval;
-                t.AfterRunFail += (sender, e) => { exceptionAccumulator.SaveException(e.Exception); };
+                t.AfterRunFailAsync += (sp, task, ex) => exceptionAccumulator.SaveExceptionAsync(ex);
             }, initialTimeout);
         }
     }

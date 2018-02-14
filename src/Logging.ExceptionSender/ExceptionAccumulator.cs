@@ -2,7 +2,7 @@
 {
     using System;
     using System.IO;
-
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
@@ -20,10 +20,10 @@
         private ITask exceptionSenderTask;
 
         public ExceptionAccumulator(
-            ILogger<ExceptionAccumulator> logger, 
-            IOptions<ExceptionSenderOptions> options, 
+            ILogger<ExceptionAccumulator> logger,
+            IOptions<ExceptionSenderOptions> options,
             IHostingEnvironment hostingEnvironment,
-            ITask<ExceptionSenderTask> exceptionSenderTask) 
+            ITask<ExceptionSenderTask> exceptionSenderTask)
         {
             this.logger = logger;
             this.options = options.Value;
@@ -34,7 +34,16 @@
         /// <summary>
         /// Append information about exception to send queue. Real send will perform later, in separate thread/task.
         /// </summary>
+        [Obsolete("Use SaveExceptionAsync(ex)")]
         public void SaveException(Exception ex)
+        {
+            SaveExceptionAsync(ex).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Append information about exception to send queue. Real send will perform later, in separate thread/task.
+        /// </summary>
+        public async Task SaveExceptionAsync(Exception ex)
         {
             var baseDir = contentRootPath;
 
@@ -46,13 +55,29 @@
             var path = Path.Combine(subfolderPath, options.ExceptionFileName);
 
             var errorText = string.Format("{2}: {0}\r\n\r\n{1}", ex.Message, ex.ToString(), ex.GetType().FullName);
-            File.WriteAllText(path, errorText);
+            using (var fs = File.OpenWrite(path))
+            {
+                using (var sr = new StreamWriter(fs))
+                {
+                    await sr.WriteAsync(errorText);
+                }
+            }
+
             logger.LogInformation("Exception details saved to: {0}", path);
 
             path = Path.Combine(subfolderPath, options.LogFileName);
 
             var log = iflight.Logging.MemoryLogger.LogList;
-            File.WriteAllLines(path, log);
+            using (var fs = File.OpenWrite(path))
+            {
+                using (var sr = new StreamWriter(fs))
+                {
+                    foreach (var line in log)
+                    {
+                        await sr.WriteLineAsync(line);
+                    }
+                }
+            }
             logger.LogInformation("Exception log saved to: {0}", path);
 
             if (exceptionSenderTask.IsStarted)

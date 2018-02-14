@@ -4,7 +4,7 @@
     using System.IO;
     using System.Net;
     using System.Net.Http;
-
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
@@ -24,7 +24,7 @@
             this.options = options.Value;
         }
 
-        protected override void Send(ITask currentTask, string text, FileInfo logFile)
+        protected override async Task SendAsync(ITask currentTask, string text, FileInfo logFile)
         {
             var mailSubject = text.Substring(0, text.IndexOf("\r\n"));
 
@@ -48,7 +48,7 @@
                 using (var httpClient = new HttpClient(handler))
                 {
                     httpClient.BaseAddress = new Uri(options.MailgunBaseUrl + options.MailgunDomain + "/");
-                    var response = httpClient.PostAsync("messages", form).Result;
+                    var response = await httpClient.PostAsync("messages", form);
 
                     response.EnsureSuccessStatusCode();
                 }
