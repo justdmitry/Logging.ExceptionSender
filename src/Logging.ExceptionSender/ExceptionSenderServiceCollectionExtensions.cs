@@ -16,7 +16,7 @@
 
             services.AddSingleton<IExceptionAccumulator, ExceptionAccumulator>();
             services.AddTransient<ExceptionSenderTask, TExceptionSender>();
-            services.AddTask<ExceptionSenderTask>();
+            services.AddTask<ExceptionSenderTask>(o => o.AutoStart(TimeSpan.FromHours(1)));
 
             return services;
         }

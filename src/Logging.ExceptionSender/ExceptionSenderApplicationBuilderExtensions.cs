@@ -16,43 +16,23 @@
 
             app.UseMiddleware<ExceptionSenderMiddleware>();
 
-            app.StartTask<ExceptionSenderTask>(TimeSpan.FromHours(1));
-
             return app;
         }
 
-        public static void StartTaskWithExceptionSender<TRunnable>(this IApplicationBuilder app, TimeSpan interval)
-            where TRunnable : IRunnable
+        public static TaskOptions WithExceptionSender(this TaskOptions taskOptions)
         {
-            if (app == null)
+            if (taskOptions == null)
             {
-                throw new ArgumentNullException(nameof(app));
+                throw new ArgumentNullException(nameof(taskOptions));
             }
 
-            var exceptionAccumulator = app.ApplicationServices.GetRequiredService<IExceptionAccumulator>();
-
-            app.StartTask<TRunnable>(t =>
-                {
-                    t.Interval = interval;
-                    t.AfterRunFailAsync += (sp, task, ex) => exceptionAccumulator.SaveExceptionAsync(ex);
-                });
-        }
-
-        public static void StartTaskWithExceptionSender<TRunnable>(this IApplicationBuilder app, TimeSpan interval, TimeSpan initialTimeout)
-            where TRunnable : IRunnable
-        {
-            if (app == null)
+            taskOptions.AfterRunFail += (sp, task, ex) =>
             {
-                throw new ArgumentNullException(nameof(app));
-            }
+                var exceptionAccumulator = sp.GetRequiredService<IExceptionAccumulator>();
+                return exceptionAccumulator.SaveExceptionAsync(ex);
+            };
 
-            var exceptionAccumulator = app.ApplicationServices.GetRequiredService<IExceptionAccumulator>();
-
-            app.StartTask<TRunnable>(t =>
-            {
-                t.Interval = interval;
-                t.AfterRunFailAsync += (sp, task, ex) => exceptionAccumulator.SaveExceptionAsync(ex);
-            }, initialTimeout);
+            return taskOptions;
         }
     }
 }

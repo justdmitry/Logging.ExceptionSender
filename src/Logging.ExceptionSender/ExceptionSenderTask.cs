@@ -36,7 +36,7 @@
 
             if (!Directory.Exists(baseDir))
             {
-                currentTask.Interval = LongInterval;
+                currentTask.Options.Interval = LongInterval;
                 logger.LogInformation("Папка с логами ошибок не существует, нечего отправлять: {0}", baseDir);
                 return;
             }
@@ -45,13 +45,13 @@
 
             if (exceptions.Length == 0)
             {
-                currentTask.Interval = LongInterval;
+                currentTask.Options.Interval = LongInterval;
                 logger.LogInformation("Папка с логами ошибок пуста, нечего отправлять: {0} ", baseDir);
                 return;
             }
 
             // есть что отправлять - значит "на случай ошибок" уменьшает интервал (до след. попытки)
-            currentTask.Interval = ShortInterval;
+            currentTask.Options.Interval = ShortInterval;
 
             var count = 0;
             foreach (string exception in exceptions)
