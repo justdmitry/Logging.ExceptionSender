@@ -20,11 +20,11 @@
         {
             try
             {
-                await nextMiddleware(context);
+                await nextMiddleware(context).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                await exceptionAccumulator.SaveExceptionAsync(ex);
+                await exceptionAccumulator.SaveExceptionAsync(ex).ConfigureAwait(false);
                 throw;
             }
         }

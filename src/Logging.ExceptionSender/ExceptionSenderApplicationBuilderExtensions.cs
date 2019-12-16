@@ -2,8 +2,6 @@
 {
     using System;
     using Logging.ExceptionSender;
-    using Microsoft.Extensions.DependencyInjection;
-    using RecurrentTasks;
 
     public static class ExceptionSenderApplicationBuilderExtensions
     {
@@ -17,22 +15,6 @@
             app.UseMiddleware<ExceptionSenderMiddleware>();
 
             return app;
-        }
-
-        public static TaskOptions WithExceptionSender(this TaskOptions taskOptions)
-        {
-            if (taskOptions == null)
-            {
-                throw new ArgumentNullException(nameof(taskOptions));
-            }
-
-            taskOptions.AfterRunFail += (sp, task, ex) =>
-            {
-                var exceptionAccumulator = sp.GetRequiredService<IExceptionAccumulator>();
-                return exceptionAccumulator.SaveExceptionAsync(ex);
-            };
-
-            return taskOptions;
         }
     }
 }

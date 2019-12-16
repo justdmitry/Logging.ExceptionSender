@@ -18,11 +18,11 @@
 
         private static readonly TimeSpan LongInterval = TimeSpan.FromHours(1);
 
-        private ILogger logger;
+        private readonly ILogger logger;
 
-        private ExceptionSenderOptions options;
+        private readonly ExceptionSenderOptions options;
 
-        private string contentRootPath;
+        private readonly string contentRootPath;
 
         public ExceptionSenderTask(
             ILogger logger,
@@ -36,11 +36,13 @@
         {
             this.logger = logger;
             this.options = options;
-            this.contentRootPath = hostEnvironment.ContentRootPath;
+            this.contentRootPath = hostEnvironment?.ContentRootPath ?? throw new ArgumentNullException(nameof(hostEnvironment));
         }
 
         public async Task RunAsync(ITask currentTask, IServiceProvider scopeServiceProvider, CancellationToken cancellationToken)
         {
+            currentTask = currentTask ?? throw new ArgumentNullException(nameof(currentTask));
+
             var baseDir = Path.Combine(contentRootPath, options.FolderName);
 
             if (!Directory.Exists(baseDir))
@@ -70,11 +72,11 @@
                 {
                     using (var fs = File.OpenText(exceptionFilePath))
                     {
-                        var exceptionText = await fs.ReadToEndAsync();
+                        var exceptionText = await fs.ReadToEndAsync().ConfigureAwait(false);
 
                         var logFile = new FileInfo(Path.Combine(exception, options.LogFileName));
 
-                        await SendAsync(currentTask, exceptionText, logFile);
+                        await SendAsync(currentTask, exceptionText, logFile).ConfigureAwait(false);
                     }
 
                     Directory.Delete(exception, true);

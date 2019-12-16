@@ -1,5 +1,7 @@
 ﻿namespace Logging.ExceptionSender
 {
+    using System;
+
     public class ExceptionSenderMailgunOptions : ExceptionSenderOptions
     {
         /// <summary>
@@ -18,7 +20,7 @@
         /// <remarks>
         /// Already set to <value>https://api.mailgun.net/v3/</value>, no need to change.
         /// </remarks>
-        public string MailgunBaseUrl { get; set; } = "https://api.mailgun.net/v3/";
+        public Uri MailgunBaseUrl { get; set; } = new Uri("https://api.mailgun.net/v3/");
 
         /// <summary>
         /// Sender email ('from' in messages)

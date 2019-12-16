@@ -1,8 +1,8 @@
 ﻿namespace Logging.ExceptionSender
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
-    using System.Net;
     using System.Net.Http;
     using System.Threading.Tasks;
 #if NETCOREAPP2_1
@@ -17,49 +17,68 @@
 
     public class ExceptionSenderMailgunTask : ExceptionSenderTask
     {
-        private ExceptionSenderMailgunOptions options;
+        private readonly ExceptionSenderMailgunOptions options;
+
+        private readonly HttpClient httpClient;
 
         public ExceptionSenderMailgunTask(
             ILogger<ExceptionSenderMailgunTask> logger,
             IOptions<ExceptionSenderMailgunOptions> options,
 #if NETCOREAPP2_1
-            IHostingEnvironment hostEnvironment
+            IHostingEnvironment hostEnvironment,
 #else
-            IHostEnvironment hostEnvironment
+            IHostEnvironment hostEnvironment,
 #endif
-            )
-            : base(logger, options.Value, hostEnvironment)
+            HttpClient httpClient)
+            : base(logger, options?.Value, hostEnvironment)
         {
             this.options = options.Value;
+            this.httpClient = httpClient;
         }
 
         protected override async Task SendAsync(ITask currentTask, string text, FileInfo logFile)
         {
-            var mailSubject = text.Substring(0, text.IndexOf("\r\n"));
-
-            using (var form = new MultipartFormDataContent())
+            if (string.IsNullOrEmpty(text))
             {
-                form.Add(new StringContent(options.From), "from");
-                foreach (var to in options.To)
-                {
-                    form.Add(new StringContent(to), "to");
-                }
-                form.Add(new StringContent(mailSubject), "subject");
-                form.Add(new StringContent(text), "text");
+                throw new ArgumentNullException(nameof(text));
+            }
 
-                if (logFile != null && logFile.Exists)
-                {
-                    form.Add(new StreamContent(logFile.OpenRead()), "attachment", logFile.Name);
-                }
+            var toDispose = new List<IDisposable>();
 
-                var credentials = new NetworkCredential("api", options.MailgunApiKey);
-                var handler = new HttpClientHandler { Credentials = credentials };
-                using (var httpClient = new HttpClient(handler))
-                {
-                    httpClient.BaseAddress = new Uri(options.MailgunBaseUrl + options.MailgunDomain + "/");
-                    var response = await httpClient.PostAsync("messages", form);
+            var addDisposableContent = new Func<HttpContent, HttpContent>(c =>
+            {
+                toDispose.Add(c);
+                return c;
+            });
 
-                    response.EnsureSuccessStatusCode();
+            var mailSubject = text.Substring(0, text.IndexOf("\r\n", StringComparison.Ordinal));
+
+            using var form = new MultipartFormDataContent();
+            foreach (var to in options.To)
+            {
+                form.Add(addDisposableContent(new StringContent(to)), "to");
+            }
+            form.Add(addDisposableContent(new StringContent(options.From)), "from");
+            form.Add(addDisposableContent(new StringContent(mailSubject)), "subject");
+            form.Add(addDisposableContent(new StringContent(text)), "text");
+
+            if (logFile != null && logFile.Exists)
+            {
+                form.Add(addDisposableContent(new StreamContent(logFile.OpenRead())), "attachment", logFile.Name);
+            }
+
+            try
+            {
+#pragma warning disable CA2234 // Pass system uri objects instead of strings // Let HttpClient to build full url
+                var response = await httpClient.PostAsync("messages", form).ConfigureAwait(false);
+#pragma warning restore CA2234 // Pass system uri objects instead of strings
+                response.EnsureSuccessStatusCode();
+            }
+            finally
+            {
+                foreach (var d in toDispose)
+                {
+                    d.Dispose();
                 }
             }
         }

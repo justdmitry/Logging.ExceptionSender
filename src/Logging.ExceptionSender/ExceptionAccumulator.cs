@@ -1,6 +1,7 @@
 ﻿namespace Logging.ExceptionSender
 {
     using System;
+    using System.Globalization;
     using System.IO;
     using System.Threading.Tasks;
 #if NETCOREAPP2_1
@@ -15,13 +16,13 @@
 
     public class ExceptionAccumulator : IExceptionAccumulator
     {
-        private ILogger logger;
+        private readonly ILogger logger;
 
-        private ExceptionSenderOptions options;
+        private readonly ExceptionSenderOptions options;
 
-        private string contentRootPath;
+        private readonly string contentRootPath;
 
-        private ITask exceptionSenderTask;
+        private readonly ITask exceptionSenderTask;
 
         public ExceptionAccumulator(
             ILogger<ExceptionAccumulator> logger,
@@ -42,51 +43,28 @@
         /// <summary>
         /// Append information about exception to send queue. Real send will perform later, in separate thread/task.
         /// </summary>
-        [Obsolete("Use SaveExceptionAsync(ex)")]
-        public void SaveException(Exception ex)
-        {
-            SaveExceptionAsync(ex).GetAwaiter().GetResult();
-        }
-
-        /// <summary>
-        /// Append information about exception to send queue. Real send will perform later, in separate thread/task.
-        /// </summary>
         public async Task SaveExceptionAsync(Exception ex)
         {
+            ex = ex ?? throw new ArgumentNullException(nameof(ex));
+
             var baseDir = contentRootPath;
 
-            var subfolderName = string.Format("{0}{1}", options.SubfolderPrefix, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-fff"));
+            var subfolderName = string.Format(CultureInfo.InvariantCulture, "{0}{1}", options.SubfolderPrefix, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-fff", CultureInfo.InvariantCulture));
             var subfolderPath = Path.Combine(baseDir, options.FolderName, subfolderName);
 
             Directory.CreateDirectory(subfolderPath);
 
             var path = Path.Combine(subfolderPath, options.ExceptionFileName);
 
-            var errorText = string.Format("{2}: {0}\r\n\r\n{1}", ex.Message, ex.ToString(), ex.GetType().FullName);
-            using (var fs = File.OpenWrite(path))
-            {
-                using (var sr = new StreamWriter(fs))
-                {
-                    await sr.WriteAsync(errorText);
-                }
-            }
-
-            logger.LogInformation("Exception details saved to: {0}", path);
+            var errorText = string.Format(CultureInfo.InvariantCulture, "{2}: {0}\r\n\r\n{1}", ex.Message, ex.ToString(), ex.GetType().FullName);
+            await File.WriteAllTextAsync(path, errorText).ConfigureAwait(false);
+            logger.LogInformation($"Exception details saved to: {path}");
 
             path = Path.Combine(subfolderPath, options.LogFileName);
 
             var log = Logging.Memory.MemoryLogger.LogList;
-            using (var fs = File.OpenWrite(path))
-            {
-                using (var sr = new StreamWriter(fs))
-                {
-                    foreach (var line in log)
-                    {
-                        await sr.WriteLineAsync(line);
-                    }
-                }
-            }
-            logger.LogInformation("Exception log saved to: {0}", path);
+            await File.WriteAllLinesAsync(path, log).ConfigureAwait(false);
+            logger.LogInformation($"Exception log saved to: {path}");
 
             if (exceptionSenderTask.IsStarted)
             {

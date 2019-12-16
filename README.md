@@ -26,11 +26,6 @@ Use NuGet package [Logging.ExceptionSender](https://www.nuget.org/packages/Loggi
 
 ### Dependencies
 
-* Microsoft.AspNetCore.Hosting.Abstractions
-* Microsoft.Extensions.Options
-* Microsoft.Extensions.PlatformAbstractions
-* System.IO.FileSystem
-* System.Net.Http
 * [Logging.Memory][1]
 * [RecurrentTasks][2]
 
@@ -65,9 +60,7 @@ Sample (minimum) configuration in `config.json` (aka `appsettings.json`):
 In `ConfigureServices` method of your `Startup.cs`:
 
 ```csharp
-services.Configure<ExceptionSenderOptions>(Configuration.GetSection("ExceptionSender"));
-services.Configure<ExceptionSenderMailgunOptions>(Configuration.GetSection("ExceptionSender"));
-services.AddExceptionSender<ExceptionSenderMailgunTask>();
+services.AddMailgunExceptionSender(Configuration.GetSection("ExceptionSender"));
 ```
 
 In `Configure` method of your `Statup.cs`:
@@ -76,8 +69,9 @@ In `Configure` method of your `Statup.cs`:
 // Enable in-memory logging
 loggerFactory.AddMemory();
 
-// Activate all ExceptionSender components
-app.UseExceptionSender();
+// Activate ExceptionSender middleware to catch ASP exceptions
+app.UseMiddleware<ExceptionSenderMiddleware>();
+
 ```
 
 

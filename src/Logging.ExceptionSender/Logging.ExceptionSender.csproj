@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Copyright>Dmitry Popov, 2016</Copyright>
+    <Copyright>Dmitry Popov, 2016-2019</Copyright>
     <AssemblyTitle>Logging.ExceptionSender</AssemblyTitle>
-    <Version>3.5.0</Version>
-    <TargetFrameworks>netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
+    <Version>4.0.0-RC1</Version>
+    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <AssemblyName>Logging.ExceptionSender</AssemblyName>
     <PackageId>Logging.ExceptionSender</PackageId>
     <PackageTags>exception;mail;stacktrace;recurrent;aspnetcore</PackageTags>
-    <PackageReleaseNotes>RecurrentTasks updated to 6.0.0-RC1</PackageReleaseNotes>
+    <PackageReleaseNotes>Update to netcoreapp3.1, package update, cleanup.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/justdmitry/Logging.ExceptionSender</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/justdmitry/Logging.ExceptionSender/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/justdmitry/Logging.ExceptionSender.git</RepositoryUrl>
     <Authors>just_dmitry</Authors>
@@ -19,13 +19,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Logging.Memory" Version="3.0.0" />
     <PackageReference Include="RecurrentTasks" Version="6.3.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
+  <!--<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
     <PackageReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
     <FrameworkReference Include="Microsoft.AspNetCore.App" />

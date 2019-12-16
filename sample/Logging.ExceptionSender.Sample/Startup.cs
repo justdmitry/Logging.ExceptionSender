@@ -19,9 +19,7 @@
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<ExceptionSenderOptions>(Configuration.GetSection("ExceptionSender"));
-            services.Configure<ExceptionSenderMailgunOptions>(Configuration.GetSection("ExceptionSender"));
-            services.AddExceptionSender<ExceptionSenderMailgunTask>();
+            services.AddMailgunExceptionSender(Configuration.GetSection("ExceptionSender"));
         }
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
