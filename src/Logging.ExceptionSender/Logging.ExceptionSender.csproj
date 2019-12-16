@@ -3,7 +3,7 @@
     <Copyright>Dmitry Popov, 2016</Copyright>
     <AssemblyTitle>Logging.ExceptionSender</AssemblyTitle>
     <Version>3.5.0</Version>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
     <AssemblyName>Logging.ExceptionSender</AssemblyName>
     <PackageId>Logging.ExceptionSender</PackageId>
     <PackageTags>exception;mail;stacktrace;recurrent;aspnetcore</PackageTags>
@@ -17,10 +17,18 @@
     <Description>Catches all unhandled exceptions and sends email with details and stacktrace to you.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Logging.Memory" Version="1.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.0" />
-    <PackageReference Include="RecurrentTasks" Version="6.0.0-RC1" />
+    <PackageReference Include="Logging.Memory" Version="3.0.0" />
+    <PackageReference Include="RecurrentTasks" Version="6.3.0" />
   </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
 </Project>

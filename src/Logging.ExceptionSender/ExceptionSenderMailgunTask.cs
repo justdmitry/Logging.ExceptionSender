@@ -5,7 +5,11 @@
     using System.Net;
     using System.Net.Http;
     using System.Threading.Tasks;
+#if NETCOREAPP2_1
     using Microsoft.AspNetCore.Hosting;
+#else
+    using Microsoft.Extensions.Hosting;
+#endif
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
 
@@ -18,8 +22,13 @@
         public ExceptionSenderMailgunTask(
             ILogger<ExceptionSenderMailgunTask> logger,
             IOptions<ExceptionSenderMailgunOptions> options,
-            IHostingEnvironment hostingEnvironment)
-            : base(logger, options.Value, hostingEnvironment)
+#if NETCOREAPP2_1
+            IHostingEnvironment hostEnvironment
+#else
+            IHostEnvironment hostEnvironment
+#endif
+            )
+            : base(logger, options.Value, hostEnvironment)
         {
             this.options = options.Value;
         }

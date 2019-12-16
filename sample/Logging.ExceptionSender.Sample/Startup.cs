@@ -10,17 +10,12 @@
 
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json")
-                .AddEnvironmentVariables();
-
-            Configuration = builder.Build();
+            this.Configuration = configuration;
         }
 
-        public IConfigurationRoot Configuration { get; set; }
+        public IConfiguration Configuration { get; set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -29,7 +24,7 @@
             services.AddExceptionSender<ExceptionSenderMailgunTask>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddMemory();
 

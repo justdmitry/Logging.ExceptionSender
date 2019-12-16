@@ -4,7 +4,11 @@
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
+#if NETCOREAPP2_1
     using Microsoft.AspNetCore.Hosting;
+#else
+    using Microsoft.Extensions.Hosting;
+#endif
     using Microsoft.Extensions.Logging;
     using RecurrentTasks;
 
@@ -23,11 +27,16 @@
         public ExceptionSenderTask(
             ILogger logger,
             ExceptionSenderOptions options,
-            IHostingEnvironment hostingEnvironment)
+#if NETCOREAPP2_1
+            IHostingEnvironment hostEnvironment
+#else
+            IHostEnvironment hostEnvironment
+#endif
+            )
         {
             this.logger = logger;
             this.options = options;
-            this.contentRootPath = hostingEnvironment.ContentRootPath;
+            this.contentRootPath = hostEnvironment.ContentRootPath;
         }
 
         public async Task RunAsync(ITask currentTask, IServiceProvider scopeServiceProvider, CancellationToken cancellationToken)

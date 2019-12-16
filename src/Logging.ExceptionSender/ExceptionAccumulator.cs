@@ -3,7 +3,11 @@
     using System;
     using System.IO;
     using System.Threading.Tasks;
+#if NETCOREAPP2_1
     using Microsoft.AspNetCore.Hosting;
+#else
+    using Microsoft.Extensions.Hosting;
+#endif
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
 
@@ -22,12 +26,16 @@
         public ExceptionAccumulator(
             ILogger<ExceptionAccumulator> logger,
             IOptions<ExceptionSenderOptions> options,
-            IHostingEnvironment hostingEnvironment,
+#if NETCOREAPP2_1
+            IHostingEnvironment hostEnvironment,
+#else
+            IHostEnvironment hostEnvironment,
+#endif
             ITask<ExceptionSenderTask> exceptionSenderTask)
         {
             this.logger = logger;
             this.options = options.Value;
-            this.contentRootPath = hostingEnvironment.ContentRootPath;
+            this.contentRootPath = hostEnvironment.ContentRootPath;
             this.exceptionSenderTask = exceptionSenderTask;
         }
 
@@ -67,7 +75,7 @@
 
             path = Path.Combine(subfolderPath, options.LogFileName);
 
-            var log = iflight.Logging.MemoryLogger.LogList;
+            var log = Logging.Memory.MemoryLogger.LogList;
             using (var fs = File.OpenWrite(path))
             {
                 using (var sr = new StreamWriter(fs))
