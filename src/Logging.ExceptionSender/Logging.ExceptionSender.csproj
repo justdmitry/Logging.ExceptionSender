@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Copyright>Dmitry Popov, 2016-2019</Copyright>
     <AssemblyTitle>Logging.ExceptionSender</AssemblyTitle>
-    <Version>4.0.0-RC1</Version>
+    <Version>4.0.0-RC2</Version>
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <AssemblyName>Logging.ExceptionSender</AssemblyName>
     <PackageId>Logging.ExceptionSender</PackageId>

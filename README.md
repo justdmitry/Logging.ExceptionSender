@@ -48,6 +48,7 @@ Sample (minimum) configuration in `config.json` (aka `appsettings.json`):
 {
     ...
     "ExceptionSender": {
+        "MailgunBaseUrl": "https://api.mailgun.net/v3/", // some accounts need https://api.eu.mailgun.net/v3/
         "MailgunDomain": "example.com",
         "MailgunApiKey": "key-*************",
         "From": "myapp@example.com",
@@ -70,7 +71,7 @@ In `Configure` method of your `Statup.cs`:
 loggerFactory.AddMemory();
 
 // Activate ExceptionSender middleware to catch ASP exceptions
-app.UseMiddleware<ExceptionSenderMiddleware>();
+app.UseExceptionSender();
 
 ```
 

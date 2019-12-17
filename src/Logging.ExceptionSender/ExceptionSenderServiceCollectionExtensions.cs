@@ -5,6 +5,7 @@
     using System.Net.Http;
     using global::Logging.ExceptionSender;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection.Extensions;
     using Microsoft.Extensions.Options;
 
     public static class ExceptionSenderServiceCollectionExtensions
@@ -22,11 +23,11 @@
                 throw new ArgumentNullException(nameof(config));
             }
 
-            services.AddSingleton<IExceptionAccumulator, ExceptionAccumulator>();
+            services.TryAddSingleton<IExceptionAccumulator, ExceptionAccumulator>();
 
             services.Configure<ExceptionSenderOptions>(config);
 
-            services.AddTransient<ExceptionSenderTask, TSenderTask>();
+            services.TryAddTransient<ExceptionSenderTask, TSenderTask>();
 
             services.AddTask<ExceptionSenderTask>(o => o.AutoStart(TimeSpan.FromHours(1)));
 
@@ -35,8 +36,6 @@
 
         public static IServiceCollection AddMailgunExceptionSender(this IServiceCollection services, IConfigurationSection config)
         {
-            AddExceptionSender<ExceptionSenderMailgunTask>(services, config);
-
             services.Configure<ExceptionSenderMailgunOptions>(config);
 
             services
@@ -51,7 +50,7 @@
                     return new HttpClientHandler { Credentials = new NetworkCredential("api", options.MailgunApiKey) };
                 });
 
-            return services;
+            return AddExceptionSender<ExceptionSenderMailgunTask>(services, config);
         }
     }
 }
