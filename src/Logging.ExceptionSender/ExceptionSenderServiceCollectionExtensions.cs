@@ -38,13 +38,11 @@
         {
             services.Configure<ExceptionSenderMailgunOptions>(config);
 
+            var options = config.Get<ExceptionSenderMailgunOptions>();
+            var baseAddress = new Uri(options.MailgunBaseUrl, options.MailgunDomain + "/");
+
             services
-                .AddHttpClient<ExceptionSenderTask, ExceptionSenderMailgunTask>(
-                (sp, c) =>
-                {
-                    var options = sp.GetRequiredService<IOptions<ExceptionSenderMailgunOptions>>().Value;
-                    c.BaseAddress = new Uri(options.MailgunBaseUrl, options.MailgunDomain + "/");
-                })
+                .AddHttpClient<ExceptionSenderTask, ExceptionSenderMailgunTask>(c => c.BaseAddress = baseAddress)
                 .ConfigurePrimaryHttpMessageHandler(sp => {
                     var options = sp.GetRequiredService<IOptions<ExceptionSenderMailgunOptions>>().Value;
                     return new HttpClientHandler { Credentials = new NetworkCredential("api", options.MailgunApiKey) };
