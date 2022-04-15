@@ -50,5 +50,15 @@
 
             return AddExceptionSender<ExceptionSenderMailgunTask>(services, config);
         }
+
+        public static IServiceCollection AddTelegramExceptionSender(this IServiceCollection services, IConfigurationSection config)
+        {
+            services.Configure<ExceptionSenderTelegramOptions>(config);
+
+            services
+                .AddHttpClient<ExceptionSenderTask, ExceptionSenderTelegramTask>();
+
+            return AddExceptionSender<ExceptionSenderTelegramTask>(services, config);
+        }
     }
 }

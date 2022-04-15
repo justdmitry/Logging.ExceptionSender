@@ -19,7 +19,7 @@
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMailgunExceptionSender(Configuration.GetSection("ExceptionSender"));
+            services.AddTelegramExceptionSender(Configuration.GetSection("ExceptionSender"));
         }
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
