@@ -5,11 +5,7 @@
     using System.IO;
     using System.Net.Http;
     using System.Threading.Tasks;
-#if NETCOREAPP2_1
-    using Microsoft.AspNetCore.Hosting;
-#else
     using Microsoft.Extensions.Hosting;
-#endif
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
 
@@ -24,11 +20,7 @@
         public ExceptionSenderMailgunTask(
             ILogger<ExceptionSenderMailgunTask> logger,
             IOptions<ExceptionSenderMailgunOptions> options,
-#if NETCOREAPP2_1
-            IHostingEnvironment hostEnvironment,
-#else
             IHostEnvironment hostEnvironment,
-#endif
             HttpClient httpClient)
             : base(logger, options?.Value, hostEnvironment)
         {

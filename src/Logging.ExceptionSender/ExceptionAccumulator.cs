@@ -4,11 +4,7 @@
     using System.Globalization;
     using System.IO;
     using System.Threading.Tasks;
-#if NETCOREAPP2_1
-    using Microsoft.AspNetCore.Hosting;
-#else
     using Microsoft.Extensions.Hosting;
-#endif
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
 
@@ -27,11 +23,7 @@
         public ExceptionAccumulator(
             ILogger<ExceptionAccumulator> logger,
             IOptions<ExceptionSenderOptions> options,
-#if NETCOREAPP2_1
-            IHostingEnvironment hostEnvironment,
-#else
             IHostEnvironment hostEnvironment,
-#endif
             ITask<ExceptionSenderTask> exceptionSenderTask)
         {
             this.logger = logger;
@@ -58,13 +50,13 @@
 
             var errorText = string.Format(CultureInfo.InvariantCulture, "{2}: {0}\r\n\r\n{1}", ex.Message, ex.ToString(), ex.GetType().FullName);
             await File.WriteAllTextAsync(path, errorText).ConfigureAwait(false);
-            logger.LogInformation($"Exception details saved to: {path}");
+            logger.LogInformation("Exception details saved to: {Path}", path);
 
             path = Path.Combine(subfolderPath, options.LogFileName);
 
             var log = Logging.Memory.MemoryLogger.LogList;
             await File.WriteAllLinesAsync(path, log).ConfigureAwait(false);
-            logger.LogInformation($"Exception log saved to: {path}");
+            logger.LogInformation("Exception log saved to: {Path}", path);
 
             if (exceptionSenderTask.IsStarted)
             {
