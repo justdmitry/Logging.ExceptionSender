@@ -40,7 +40,7 @@
             if (!Directory.Exists(baseDir))
             {
                 currentTask.Options.Interval = LongInterval;
-                logger.LogInformation("Папка с логами ошибок не существует, нечего отправлять: {0}", baseDir);
+                logger.LogDebug("Logs folder not found, nothing to send: {Dir}", baseDir);
                 return;
             }
 
@@ -49,7 +49,7 @@
             if (exceptions.Length == 0)
             {
                 currentTask.Options.Interval = LongInterval;
-                logger.LogInformation("Папка с логами ошибок пуста, нечего отправлять: {0} ", baseDir);
+                logger.LogDebug("Logs folder is empty, nothing to send: {Dir} ", baseDir);
                 return;
             }
 
@@ -75,7 +75,7 @@
                     count++;
                 }
             }
-            logger.LogInformation("Успешно отправлено {0} писем с логами ошибок.", count);
+            logger.LogInformation("{Count} logs files were sent successfully.", count);
         }
 
         protected abstract Task SendAsync(ITask currentTask, string text, FileInfo logFile);
