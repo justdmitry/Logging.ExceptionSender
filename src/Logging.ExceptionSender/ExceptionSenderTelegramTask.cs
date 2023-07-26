@@ -63,6 +63,10 @@ namespace Logging.ExceptionSender
             using var form = new MultipartFormDataContent();
             form.Add(addDisposableContent(new StringContent(options.ChatId)), "chat_id");
             form.Add(addDisposableContent(new StringContent(caption)), "caption");
+            if (options.MessageThreadId.HasValue)
+            {
+                form.Add(addDisposableContent(new StringContent(options.MessageThreadId.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))), "message_thread_id");
+            }
 
             if (logFile != null && logFile.Exists)
             {

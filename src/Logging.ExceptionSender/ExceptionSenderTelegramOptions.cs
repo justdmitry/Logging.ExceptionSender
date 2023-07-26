@@ -14,6 +14,11 @@ namespace Logging.ExceptionSender
         public string ChatId { get; set; }
 
         /// <summary>
+        /// Unique identifier for the target message thread (topic) of the forum; for forum supergroups only.
+        /// </summary>
+        public long? MessageThreadId { get; set; }
+
+        /// <summary>
         /// Telegram Bot token (like 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11).
         /// </summary>
         public string BotToken { get; set; }
