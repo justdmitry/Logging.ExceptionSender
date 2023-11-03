@@ -43,7 +43,7 @@
                 return c;
             });
 
-            var mailSubject = text.Substring(0, text.IndexOf("\r\n", StringComparison.Ordinal));
+            var mailSubject = text[..Math.Min(256, text.IndexOf("\r\n", StringComparison.Ordinal))];
 
             using var form = new MultipartFormDataContent();
             foreach (var to in options.To)

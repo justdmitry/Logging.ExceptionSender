@@ -58,7 +58,7 @@ namespace Logging.ExceptionSender
                 return c;
             });
 
-            var caption = appName + "\r\n" + text[..text.IndexOf("\r\n", StringComparison.Ordinal)];
+            var caption = appName + "\r\n" + text[..Math.Min(2048, text.IndexOf("\r\n", StringComparison.Ordinal))];
 
             using var form = new MultipartFormDataContent();
             form.Add(addDisposableContent(new StringContent(options.ChatId)), "chat_id");
