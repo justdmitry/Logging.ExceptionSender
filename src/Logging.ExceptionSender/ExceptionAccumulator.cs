@@ -3,6 +3,7 @@
     using System;
     using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
@@ -55,6 +56,30 @@
             path = Path.Combine(subfolderPath, options.LogFileName);
 
             var log = Logging.Memory.MemoryLogger.LogList;
+
+            if (options.LogFileMaxSize > 0
+                && log.Sum(x => x.Length) > options.LogFileMaxSize) // usually we expect them much smaller, so check first
+            {
+                var size = 0;
+                var cut = log.Count;
+
+                for(var i = log.Count - 1; i >= 0; i--)
+                {
+                    size += log[i].Length;
+                    if (size  > options.LogFileMaxSize)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        cut--;
+                    }
+                }
+
+                log.RemoveRange(0, cut);
+                log.Insert(0, $"Some lines ({cut}) were removed to keep log file size small");
+            }
+
             await File.WriteAllLinesAsync(path, log).ConfigureAwait(false);
             logger.LogInformation("Exception log saved to: {Path}", path);
 
