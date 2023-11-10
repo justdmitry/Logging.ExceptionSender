@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Copyright>Dmitry Popov, 2016-2022</Copyright>
+    <Copyright>Dmitry Popov, 2016-2023</Copyright>
     <AssemblyTitle>Logging.ExceptionSender</AssemblyTitle>
     <LangVersion>8</LangVersion>
     <Version>4.4.0</Version>
@@ -15,15 +15,23 @@
     <RepositoryUrl>https://github.com/justdmitry/Logging.ExceptionSender.git</RepositoryUrl>
     <Authors>just_dmitry</Authors>
     <Company />
-    <Description>Catches all unhandled exceptions and sends email with details and stacktrace to you.</Description>
+    <Description>Catches all unhandled exceptions and sends email (or Telegram message) with details and stacktrace to you.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Logging.Memory" Version="3.0.1" />
     <PackageReference Include="RecurrentTasks" Version="6.5.0" />
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
