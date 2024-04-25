@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Copyright>Dmitry Popov, 2016-2023</Copyright>
+    <Copyright>Dmitry Popov, 2016-2024</Copyright>
     <AssemblyTitle>Logging.ExceptionSender</AssemblyTitle>
     <LangVersion>8</LangVersion>
-    <Version>4.4.0</Version>
-    <TargetFrameworks>netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
+    <Version>4.5.0</Version>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
     <AssemblyName>Logging.ExceptionSender</AssemblyName>
     <PackageId>Logging.ExceptionSender</PackageId>
     <PackageTags>exception;mail;stacktrace;recurrent;aspnetcore</PackageTags>
-    <PackageReleaseNotes>Trim too long log file (use LogFileMaxSize option, default is 10MB).</PackageReleaseNotes>
+    <PackageReleaseNotes>Add net8.0; Drop out-of-support frameworks; Add ExceptionSenderTelegramOptions.AppNameSuffix.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/justdmitry/Logging.ExceptionSender</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>

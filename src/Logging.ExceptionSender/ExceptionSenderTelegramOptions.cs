@@ -22,5 +22,10 @@ namespace Logging.ExceptionSender
         /// Telegram Bot token (like 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11).
         /// </summary>
         public string BotToken { get; set; }
+
+        /// <summary>
+        /// Additional inifo about app to be added to message text.
+        /// </summary>
+        public string AppNameSuffix { get; set; }
     }
 }

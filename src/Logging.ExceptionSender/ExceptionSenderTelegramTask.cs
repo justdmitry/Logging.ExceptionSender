@@ -31,6 +31,7 @@ namespace Logging.ExceptionSender
 
             var appAssembly = Assembly.GetEntryAssembly();
             appName = appAssembly.GetCustomAttribute<AssemblyTitleAttribute>()?.Title ?? appAssembly.GetName().Name ?? "Unknown :(";
+            appName += options.Value.AppNameSuffix;
         }
 
         protected override async Task SendAsync(ITask currentTask, string text, FileInfo logFile)
