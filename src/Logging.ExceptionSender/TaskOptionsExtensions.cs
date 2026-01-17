@@ -8,15 +8,12 @@
     {
         public static TaskOptions WithExceptionSender(this TaskOptions taskOptions)
         {
-            if (taskOptions == null)
-            {
-                throw new ArgumentNullException(nameof(taskOptions));
-            }
+            ArgumentNullException.ThrowIfNull(taskOptions);
 
             taskOptions.AfterRunFail += (sp, task, ex) =>
             {
                 var exceptionAccumulator = sp.GetRequiredService<IExceptionAccumulator>();
-                return exceptionAccumulator.SaveExceptionAsync(ex);
+                return exceptionAccumulator.SaveException(ex);
             };
 
             return taskOptions;

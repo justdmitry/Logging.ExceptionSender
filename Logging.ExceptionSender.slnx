@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/sample/">
+    <Project Path="sample/Logging.ExceptionSender.Sample/Logging.ExceptionSender.Sample.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Logging.ExceptionSender.Web/Logging.ExceptionSender.Web.csproj" />
+    <Project Path="src/Logging.ExceptionSender/Logging.ExceptionSender.csproj" />
+  </Folder>
+</Solution>

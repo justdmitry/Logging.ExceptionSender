@@ -8,34 +8,21 @@
     using Microsoft.Extensions.Logging;
     using RecurrentTasks;
 
-    public abstract class ExceptionSenderTask : IRunnable
+    public abstract class ExceptionSenderTask(
+        ILogger logger,
+        ExceptionSenderOptions options,
+        IHostEnvironment hostEnvironment)
+        : IRunnable
     {
         private static readonly TimeSpan ShortInterval = TimeSpan.FromMinutes(1);
 
         private static readonly TimeSpan LongInterval = TimeSpan.FromHours(1);
 
-        private readonly ILogger logger;
-
-        private readonly ExceptionSenderOptions options;
-
-        private readonly string contentRootPath;
-
-        public ExceptionSenderTask(
-            ILogger logger,
-            ExceptionSenderOptions options,
-            IHostEnvironment hostEnvironment
-            )
-        {
-            this.logger = logger;
-            this.options = options;
-            this.contentRootPath = hostEnvironment?.ContentRootPath ?? throw new ArgumentNullException(nameof(hostEnvironment));
-        }
-
         public async Task RunAsync(ITask currentTask, IServiceProvider scopeServiceProvider, CancellationToken cancellationToken)
         {
             currentTask = currentTask ?? throw new ArgumentNullException(nameof(currentTask));
 
-            var baseDir = Path.Combine(contentRootPath, options.FolderName);
+            var baseDir = Path.Combine(hostEnvironment.ContentRootPath, options.FolderName);
 
             if (!Directory.Exists(baseDir))
             {
@@ -64,7 +51,7 @@
                 {
                     using (var fs = File.OpenText(exceptionFilePath))
                     {
-                        var exceptionText = await fs.ReadToEndAsync().ConfigureAwait(false);
+                        var exceptionText = await fs.ReadToEndAsync(cancellationToken).ConfigureAwait(false);
 
                         var logFile = new FileInfo(Path.Combine(exception, options.LogFileName));
 
@@ -75,6 +62,7 @@
                     count++;
                 }
             }
+
             logger.LogInformation("{Count} logs files were sent successfully.", count);
         }
 

@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <OutputType>library</OutputType>
+    <IsPackable>true</IsPackable>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <Copyright>Dmitry Popov, 2016-2026</Copyright>
+    <AssemblyTitle>Logging.ExceptionSender.Web</AssemblyTitle>
+    <Version>5.0.0</Version>
+    <AssemblyName>Logging.ExceptionSender.Web</AssemblyName>
+    <RootNamespace>Logging.ExceptionSender</RootNamespace>
+    <PackageId>Logging.ExceptionSender.Web</PackageId>
+    <PackageTags>exception;mail;stacktrace;recurrent;aspnetcore</PackageTags>
+    <PackageReleaseNotes>See https://github.com/justdmitry/Logging.ExceptionSender/releases/tag/v5.0.0.</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/justdmitry/Logging.ExceptionSender</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/justdmitry/Logging.ExceptionSender.git</RepositoryUrl>
+    <Authors>just_dmitry</Authors>
+    <Company />
+    <Description>Web adapter for ExceptionSender to catch unhandled pipeline errors.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Logging.ExceptionSender\Logging.ExceptionSender.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

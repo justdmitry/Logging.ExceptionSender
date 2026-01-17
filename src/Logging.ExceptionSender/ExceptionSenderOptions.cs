@@ -8,7 +8,7 @@
         /// <remarks>
         /// Default: <value>log</value>
         /// </remarks>
-        public string FolderName { get; set; } = "log";
+        public required string FolderName { get; set; } = "log";
 
         /// <summary>
         /// Prefix for each separate exception subfolder
@@ -16,7 +16,7 @@
         /// <remarks>
         /// Default: <value>exception_</value>
         /// </remarks>
-        public string SubfolderPrefix { get; set; } = "exception_";
+        public string? SubfolderPrefix { get; set; } = "exception_";
 
         /// <summary>
         /// File name for exception stacktrace
@@ -24,7 +24,7 @@
         /// <remarks>
         /// Default: <value>exception.txt</value>
         /// </remarks>
-        public string ExceptionFileName { get; set; } = "exception.txt";
+        public required string ExceptionFileName { get; set; } = "exception.txt";
 
         /// <summary>
         /// File name for log records (before exception)
@@ -32,7 +32,7 @@
         /// <remarks>
         /// Default: <value>log.txt</value>
         /// </remarks>
-        public string LogFileName { get; set; } = "log.txt";
+        public required string LogFileName { get; set; } = "log.txt";
 
         /// <summary>
         /// Maximum size (in bytes) for log file (before exception). Set to 0 (or negative) to disable size limit.
@@ -40,6 +40,6 @@
         /// <remarks>
         /// Default: <value>10000000</value> (approx. 10 MB)
         /// </remarks>
-        public int LogFileMaxSize { get; set; } = 10_000_000;
+        public required int LogFileMaxSize { get; set; } = 10_000_000;
     }
 }

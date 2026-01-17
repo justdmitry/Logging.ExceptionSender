@@ -7,10 +7,7 @@
     {
         public static IApplicationBuilder UseExceptionSender(this IApplicationBuilder app)
         {
-            if (app == null)
-            {
-                throw new ArgumentNullException(nameof(app));
-            }
+            ArgumentNullException.ThrowIfNull(app);
 
             app.UseMiddleware<ExceptionSenderMiddleware>();
 

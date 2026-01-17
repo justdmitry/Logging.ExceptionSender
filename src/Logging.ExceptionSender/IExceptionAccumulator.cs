@@ -5,6 +5,6 @@
 
     public interface IExceptionAccumulator
     {
-        Task SaveExceptionAsync(Exception ex);
+        Task SaveException(Exception ex);
     }
 }

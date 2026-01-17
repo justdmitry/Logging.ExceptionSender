@@ -13,15 +13,8 @@
         private static IServiceCollection AddExceptionSender<TSenderTask>(this IServiceCollection services, IConfigurationSection config)
             where TSenderTask : ExceptionSenderTask
         {
-            if (services == null)
-            {
-                throw new ArgumentNullException(nameof(services));
-            }
-
-            if (config == null)
-            {
-                throw new ArgumentNullException(nameof(config));
-            }
+            ArgumentNullException.ThrowIfNull(services);
+            ArgumentNullException.ThrowIfNull(config);
 
             services.TryAddSingleton<IExceptionAccumulator, ExceptionAccumulator>();
 
@@ -43,7 +36,8 @@
 
             services
                 .AddHttpClient<ExceptionSenderTask, ExceptionSenderMailgunTask>(c => c.BaseAddress = baseAddress)
-                .ConfigurePrimaryHttpMessageHandler(sp => {
+                .ConfigurePrimaryHttpMessageHandler(sp =>
+                {
                     var options = sp.GetRequiredService<IOptions<ExceptionSenderMailgunOptions>>().Value;
                     return new HttpClientHandler { Credentials = new NetworkCredential("api", options.MailgunApiKey) };
                 });

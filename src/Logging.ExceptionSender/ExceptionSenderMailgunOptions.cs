@@ -7,12 +7,12 @@
         /// <summary>
         /// Domain for sending reports via MailGun.com
         /// </summary>
-        public string MailgunDomain { get; set; }
+        public required string MailgunDomain { get; set; }
 
         /// <summary>
         /// ApiKey for sending reports via MailGun.com
         /// </summary>
-        public string MailgunApiKey { get; set; }
+        public required string MailgunApiKey { get; set; }
 
         /// <summary>
         /// Base url for sending reports via MailGun.com
@@ -20,16 +20,16 @@
         /// <remarks>
         /// Already set to <value>https://api.mailgun.net/v3/</value>, no need to change.
         /// </remarks>
-        public Uri MailgunBaseUrl { get; set; } = new Uri("https://api.mailgun.net/v3/");
+        public required Uri MailgunBaseUrl { get; set; } = new("https://api.mailgun.net/v3/");
 
         /// <summary>
         /// Sender email ('from' in messages)
         /// </summary>
-        public string From { get; set; }
+        public required string From { get; set; }
 
         /// <summary>
         /// Target (admin) email(s) ('to' in messages)
         /// </summary>
-        public string[] To { get; set; }
+        public required string[] To { get; set; }
     }
 }

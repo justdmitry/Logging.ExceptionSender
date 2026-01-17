@@ -8,41 +8,26 @@
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
-
     using RecurrentTasks;
 
-    public class ExceptionAccumulator : IExceptionAccumulator
+    public class ExceptionAccumulator(
+        ILogger<ExceptionAccumulator> logger,
+        IOptions<ExceptionSenderOptions> options,
+        IHostEnvironment hostEnvironment,
+        ITask<ExceptionSenderTask> exceptionSenderTask) : IExceptionAccumulator
     {
-        private readonly ILogger logger;
-
-        private readonly ExceptionSenderOptions options;
-
-        private readonly string contentRootPath;
-
-        private readonly ITask exceptionSenderTask;
-
-        public ExceptionAccumulator(
-            ILogger<ExceptionAccumulator> logger,
-            IOptions<ExceptionSenderOptions> options,
-            IHostEnvironment hostEnvironment,
-            ITask<ExceptionSenderTask> exceptionSenderTask)
-        {
-            this.logger = logger;
-            this.options = options.Value;
-            this.contentRootPath = hostEnvironment.ContentRootPath;
-            this.exceptionSenderTask = exceptionSenderTask;
-        }
+        private readonly ExceptionSenderOptions options = options.Value;
 
         /// <summary>
         /// Append information about exception to send queue. Real send will perform later, in separate thread/task.
         /// </summary>
-        public async Task SaveExceptionAsync(Exception ex)
+        public async Task SaveException(Exception ex)
         {
             ex = ex ?? throw new ArgumentNullException(nameof(ex));
 
-            var baseDir = contentRootPath;
+            var baseDir = hostEnvironment.ContentRootPath;
 
-            var subfolderName = string.Format(CultureInfo.InvariantCulture, "{0}{1}", options.SubfolderPrefix, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-fff", CultureInfo.InvariantCulture));
+            var subfolderName = string.Concat(options.SubfolderPrefix, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-fff", CultureInfo.InvariantCulture));
             var subfolderPath = Path.Combine(baseDir, options.FolderName, subfolderName);
 
             Directory.CreateDirectory(subfolderPath);
@@ -63,10 +48,10 @@
                 var size = 0;
                 var cut = log.Count;
 
-                for(var i = log.Count - 1; i >= 0; i--)
+                for (var i = log.Count - 1; i >= 0; i--)
                 {
                     size += log[i].Length;
-                    if (size  > options.LogFileMaxSize)
+                    if (size > options.LogFileMaxSize)
                     {
                         break;
                     }

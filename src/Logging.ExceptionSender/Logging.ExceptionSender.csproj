@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Copyright>Dmitry Popov, 2016-2024</Copyright>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <Copyright>Dmitry Popov, 2016-2026</Copyright>
     <AssemblyTitle>Logging.ExceptionSender</AssemblyTitle>
-    <LangVersion>8</LangVersion>
-    <Version>4.5.0</Version>
-    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    <Version>5.0.0</Version>
     <AssemblyName>Logging.ExceptionSender</AssemblyName>
     <PackageId>Logging.ExceptionSender</PackageId>
     <PackageTags>exception;mail;stacktrace;recurrent;aspnetcore</PackageTags>
-    <PackageReleaseNotes>Add net8.0; Drop out-of-support frameworks; Add ExceptionSenderTelegramOptions.AppNameSuffix.</PackageReleaseNotes>
+    <PackageReleaseNotes>See https://github.com/justdmitry/Logging.ExceptionSender/releases/tag/v5.0.0.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/justdmitry/Logging.ExceptionSender</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
@@ -22,9 +22,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Logging.Memory" Version="3.0.1" />
-    <PackageReference Include="RecurrentTasks" Version="6.5.0" />
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Logging.Memory" Version="3.1.0" />
+    <PackageReference Include="RecurrentTasks" Version="7.1.0" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.0" />
   </ItemGroup>
 
   <ItemGroup>
