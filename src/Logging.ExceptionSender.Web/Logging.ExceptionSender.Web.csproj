@@ -7,12 +7,12 @@
     <Nullable>enable</Nullable>
     <Copyright>Dmitry Popov, 2016-2026</Copyright>
     <AssemblyTitle>Logging.ExceptionSender.Web</AssemblyTitle>
-    <Version>5.0.0</Version>
+    <Version>5.1.0</Version>
     <AssemblyName>Logging.ExceptionSender.Web</AssemblyName>
     <RootNamespace>Logging.ExceptionSender</RootNamespace>
     <PackageId>Logging.ExceptionSender.Web</PackageId>
     <PackageTags>exception;mail;stacktrace;recurrent;aspnetcore</PackageTags>
-    <PackageReleaseNotes>See https://github.com/justdmitry/Logging.ExceptionSender/releases/tag/v5.0.0.</PackageReleaseNotes>
+    <PackageReleaseNotes>See https://github.com/justdmitry/Logging.ExceptionSender/releases/tag/v5.1.0.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/justdmitry/Logging.ExceptionSender</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
